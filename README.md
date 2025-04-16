@@ -1,0 +1,1 @@
+Pterodactyl Panelの日本語ファイルです。
