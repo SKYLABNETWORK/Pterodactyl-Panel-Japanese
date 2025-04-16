@@ -36,6 +36,17 @@ const PageContentBlock: React.FC<PageContentBlockProps> = ({ title, showFlashKey
                         </a>
                         &nbsp;&copy; 2015 - {new Date().getFullYear()}
                     </p>
+                    <p css={tw`text-center text-neutral-500 text-xs`}>
+                        <a
+                            rel={'noopener nofollow noreferrer'}
+                            href={'https://skylabnetwork.jp/'}
+                            target={'_blank'}
+                            css={tw`no-underline text-neutral-500 hover:text-neutral-300`}
+                        >
+                            SKYLAB NETWORK 翻訳
+                        </a>
+                        &nbsp;&copy; 2022 - {new Date().getFullYear()}
+                    </p>
                 </ContentContainer>
             </>
         </CSSTransition>
