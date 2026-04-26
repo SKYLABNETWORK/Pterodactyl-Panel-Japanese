@@ -76,11 +76,11 @@ const JavaVersionModalFeature = () => {
             showSpinnerOverlay={loading}
         >
             <FlashMessageRender key={'feature:javaVersion'} css={tw`mb-4`} />
-            <h2 css={tw`text-2xl mb-4 text-neutral-100`}>サポートされていないJavaバージョン</h2>
+            <h2 css={tw`text-2xl mb-4 text-neutral-100`}>サポートされていない Java バージョン</h2>
             <p css={tw`mt-4`}>
-                このサーバーは現在サポートされていないJavaバージョンで実行されているため、起動できません。
+                このサーバーは現在サポートされていない Java バージョンで実行されているため、起動できません。
                 <Can action={'startup.docker-image'}>
-                    &nbsp;サーバーを起動し続けるには、以下のリストからサポートされているバージョンを選択してください。
+                    &nbsp;サーバーの起動を続行するには、下の一覧からサポートされているバージョンを選択してください。
                 </Can>
             </p>
             <Can action={'startup.docker-image'}>
@@ -106,7 +106,7 @@ const JavaVersionModalFeature = () => {
                 </Button>
                 <Can action={'startup.docker-image'}>
                     <Button onClick={updateJava} css={tw`w-full sm:w-auto`}>
-                        Dockerイメージを更新
+                        Docker イメージを更新
                     </Button>
                 </Can>
             </div>

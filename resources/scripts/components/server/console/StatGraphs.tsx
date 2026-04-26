@@ -16,7 +16,7 @@ export default () => {
     const limits = ServerContext.useStoreState((state) => state.server.data!.limits);
     const previous = useRef<Record<'tx' | 'rx', number>>({ tx: -1, rx: -1 });
 
-    const cpu = useChartTickLabel('CPU 使用率', limits.cpu, '%', 2);
+    const cpu = useChartTickLabel('CPU', limits.cpu, '%', 2);
     const memory = useChartTickLabel('メモリ', limits.memory, 'MiB');
     const network = useChart('ネットワーク', {
         sets: 2,
@@ -34,7 +34,7 @@ export default () => {
         callback(opts, index) {
             return {
                 ...opts,
-                label: !index ? '受信' : '送信',
+                label: !index ? 'ネットワーク受信' : 'ネットワーク送信',
                 borderColor: !index ? theme('colors.cyan.400') : theme('colors.yellow.400'),
                 backgroundColor: hexToRgba(!index ? theme('colors.cyan.700') : theme('colors.yellow.700'), 0.5),
             };

@@ -12,6 +12,19 @@ interface Props {
     className?: string;
 }
 
+const permissionTitles: Record<string, string> = {
+    control: '制御',
+    user: 'ユーザー',
+    file: 'ファイル',
+    backup: 'バックアップ',
+    allocation: '割り当て',
+    startup: '起動',
+    database: 'データベース',
+    schedule: 'スケジュール',
+    settings: '設定',
+    activity: 'アクティビティ',
+};
+
 const PermissionTitleBox: React.FC<Props> = memo(({ isEditable, title, permissions, className, children }) => {
     const [{ value }, , { setValue }] = useField<string[]>('permissions');
 
@@ -30,7 +43,7 @@ const PermissionTitleBox: React.FC<Props> = memo(({ isEditable, title, permissio
         <TitledGreyBox
             title={
                 <div css={tw`flex items-center`}>
-                    <p css={tw`text-sm uppercase flex-1`}>{title}</p>
+                    <p css={tw`text-sm uppercase flex-1`}>{permissionTitles[title] || title}</p>
                     {isEditable && (
                         <Input
                             type={'checkbox'}

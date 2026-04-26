@@ -38,12 +38,12 @@ const BackupContainer = () => {
             <Pagination data={backups} onPageSelect={setPage}>
                 {({ items }) =>
                     !items.length ? (
-                        // サーバーにバックアップがなく、かつユーザーがバックアップを追加作成できない場合は
-                        // エラーメッセージを表示しない
+                        // Don't show any error messages if the server has no backups and the user cannot
+                        // create additional ones for the server.
                         !backupLimit ? null : (
                             <p css={tw`text-center text-sm text-neutral-300`}>
                                 {page > 1
-                                    ? '表示するバックアップが残っていないようです。前のページに戻ってみてください。'
+                                    ? '表示できるバックアップがこれ以上ありません。前のページに戻ってください。'
                                     : 'このサーバーには現在保存されているバックアップがありません。'}
                             </p>
                         )
@@ -56,14 +56,14 @@ const BackupContainer = () => {
             </Pagination>
             {backupLimit === 0 && (
                 <p css={tw`text-center text-sm text-neutral-300`}>
-                    このサーバーでは、バックアップの作成が許可されていません。
+                    このサーバーのバックアップ上限が 0 に設定されているため、バックアップを作成できません。
                 </p>
             )}
             <Can action={'backup.create'}>
                 <div css={tw`mt-6 sm:flex items-center justify-end`}>
                     {backupLimit > 0 && backups.backupCount > 0 && (
                         <p css={tw`text-sm text-neutral-300 mb-4 sm:mr-6 sm:mb-0`}>
-                            {backups.backupCount} / {backupLimit} 件のバックアップが作成されています。
+                            このサーバーでは {backupLimit} 個中 {backups.backupCount} 個のバックアップが作成されています。
                         </p>
                     )}
                     {backupLimit > 0 && backupLimit > backups.backupCount && (

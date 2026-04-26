@@ -73,22 +73,26 @@ const GSLTokenModalFeature = () => {
                 closeOnBackground={false}
                 showSpinnerOverlay={loading}
             >
-                <FlashMessageRender byKey={'feature:gslToken'} css={tw`mb-4`} />
+                <FlashMessageRender key={'feature:gslToken'} css={tw`mb-4`} />
                 <Form>
-                    <h2 css={tw`text-2xl mb-4 text-neutral-100`}>GSLトークンが無効です</h2>
-                    <p css={tw`mt-4`}>Gameserver Login Token (GSLトークン) が無効または期限切れのようです。</p>
-                    <p css={tw`mt-4`}>新しいトークンを生成して以下に入力するか、空欄のままにして完全に削除できます。</p>
+                    <h2 css={tw`text-2xl mb-4 text-neutral-100`}>無効な GSL トークンです</h2>
+                    <p css={tw`mt-4`}>
+                        Gameserver Login Token（GSL トークン）が無効、または期限切れのようです。
+                    </p>
+                    <p css={tw`mt-4`}>
+                        新しいトークンを生成して下に入力するか、空欄のままにして完全に削除できます。
+                    </p>
                     <div css={tw`sm:flex items-center mt-4`}>
                         <Field
                             name={'gslToken'}
-                            label={'GSLトークン'}
-                            description={'https://steamcommunity.com/dev/managegameservers でトークンを生成できます。'}
+                            label={'GSL トークン'}
+                            description={'トークンを生成するには https://steamcommunity.com/dev/managegameservers にアクセスしてください。'}
                             autoFocus
                         />
                     </div>
                     <div css={tw`mt-8 sm:flex items-center justify-end`}>
                         <Button type={'submit'} css={tw`mt-4 sm:mt-0 sm:ml-4 w-full sm:w-auto`}>
-                            GSLトークンを更新
+                            GSL トークンを更新
                         </Button>
                     </div>
                 </Form>

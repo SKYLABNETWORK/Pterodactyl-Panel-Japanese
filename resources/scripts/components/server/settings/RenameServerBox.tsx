@@ -24,7 +24,7 @@ const RenameServerBox = () => {
     const { isSubmitting } = useFormikContext<Values>();
 
     return (
-        <TitledGreyBox title={'サーバー情報の変更'} css={tw`relative`}>
+        <TitledGreyBox title={'サーバー詳細を変更'} css={tw`relative`}>
             <SpinnerOverlay visible={isSubmitting} />
             <Form css={tw`mb-0`}>
                 <Field id={'name'} name={'name'} label={'サーバー名'} type={'text'} />
@@ -66,7 +66,7 @@ export default () => {
                 description: server.description,
             }}
             validationSchema={object().shape({
-                name: string().required().min(1),
+                name: string().required('サーバー名を入力してください。').min(1, 'サーバー名を入力してください。'),
                 description: string().nullable(),
             })}
         >

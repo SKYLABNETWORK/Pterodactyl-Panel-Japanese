@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
 @section('title')
-    Server — {{ $server->name }}: Startup
+    サーバー — {{ $server->name }}: 起動
 @endsection
 
 @section('content-header')
-    <h1>{{ $server->name }}<small>Control startup command as well as variables.</small></h1>
+    <h1>{{ $server->name }}<small>起動コマンドと変数を管理します。</small></h1>
     <ol class="breadcrumb">
-        <li><a href="{{ route('admin.index') }}">Admin</a></li>
-        <li><a href="{{ route('admin.servers') }}">Servers</a></li>
+        <li><a href="{{ route('admin.index') }}">管理</a></li>
+        <li><a href="{{ route('admin.servers') }}">サーバー</a></li>
         <li><a href="{{ route('admin.servers.view', $server->id) }}">{{ $server->name }}</a></li>
-        <li class="active">Startup</li>
+        <li class="active">起動</li>
     </ol>
 @endsection
 
@@ -21,20 +21,20 @@
         <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Startup Command Modification</h3>
+                    <h3 class="box-title">起動コマンドの変更</h3>
                 </div>
                 <div class="box-body">
-                    <label for="pStartup" class="form-label">Startup Command</label>
+                    <label for="pStartup" class="form-label">起動コマンド</label>
                     <input id="pStartup" name="startup" class="form-control" type="text" value="{{ old('startup', $server->startup) }}" />
-                    <p class="small text-muted">Edit your server's startup command here. The following variables are available by default: <code>@{{SERVER_MEMORY}}</code>, <code>@{{SERVER_IP}}</code>, and <code>@{{SERVER_PORT}}</code>.</p>
+                    <p class="small text-muted">ここでサーバーの起動コマンドを編集します。デフォルトで次の変数を使用できます: <code>@{{SERVER_MEMORY}}</code>、<code>@{{SERVER_IP}}</code>、<code>@{{SERVER_PORT}}</code>。</p>
                 </div>
                 <div class="box-body">
-                    <label for="pDefaultStartupCommand" class="form-label">Default Service Start Command</label>
+                    <label for="pDefaultStartupCommand" class="form-label">デフォルトサービス起動コマンド</label>
                     <input id="pDefaultStartupCommand" class="form-control" type="text" readonly />
                 </div>
                 <div class="box-footer">
                     {!! csrf_field() !!}
-                    <button type="submit" class="btn btn-primary btn-sm pull-right">Save Modifications</button>
+                    <button type="submit" class="btn btn-primary btn-sm pull-right">変更を保存</button>
                 </div>
             </div>
         </div>
@@ -43,20 +43,20 @@
         <div class="col-md-6">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Service Configuration</h3>
+                    <h3 class="box-title">サービス構成</h3>
                 </div>
                 <div class="box-body row">
                     <div class="col-xs-12">
                         <p class="small text-danger">
-                            Changing any of the below values will result in the server processing a re-install command. The server will be stopped and will then proceed.
-                            If you would like the service scripts to not run, ensure the box is checked at the bottom.
+                            以下の値を変更すると、サーバーは再インストールコマンドを処理します。サーバーは停止され、その後処理が続行されます。
+                            サービススクリプトを実行しない場合は、下部のボックスにチェックが入っていることを確認してください。
                         </p>
                         <p class="small text-danger">
-                            <strong>This is a destructive operation in many cases. This server will be stopped immediately in order for this action to proceed.</strong>
+                            <strong>これは多くの場合、破壊的な操作です。この操作を続行するため、このサーバーは直ちに停止されます。</strong>
                         </p>
                     </div>
                     <div class="form-group col-xs-12">
-                        <label for="pNestId">Nest</label>
+                        <label for="pNestId">ネスト</label>
                         <select name="nest_id" id="pNestId" class="form-control">
                             @foreach($nests as $nest)
                                 <option value="{{ $nest->id }}"
@@ -66,32 +66,32 @@
                                 >{{ $nest->name }}</option>
                             @endforeach
                         </select>
-                        <p class="small text-muted no-margin">Select the Nest that this server will be grouped into.</p>
+                        <p class="small text-muted no-margin">このサーバーをグループ化するネストを選択してください。</p>
                     </div>
                     <div class="form-group col-xs-12">
-                        <label for="pEggId">Egg</label>
+                        <label for="pEggId">エッグ</label>
                         <select name="egg_id" id="pEggId" class="form-control"></select>
-                        <p class="small text-muted no-margin">Select the Egg that will provide processing data for this server.</p>
+                        <p class="small text-muted no-margin">このサーバーの処理データを提供するエッグを選択してください。</p>
                     </div>
                     <div class="form-group col-xs-12">
                         <div class="checkbox checkbox-primary no-margin-bottom">
                             <input id="pSkipScripting" name="skip_scripts" type="checkbox" value="1" @if($server->skip_scripts) checked @endif />
-                            <label for="pSkipScripting" class="strong">Skip Egg Install Script</label>
+                            <label for="pSkipScripting" class="strong">エッグインストールスクリプトをスキップ</label>
                         </div>
-                        <p class="small text-muted no-margin">If the selected Egg has an install script attached to it, the script will run during install. If you would like to skip this step, check this box.</p>
+                        <p class="small text-muted no-margin">選択したエッグにインストールスクリプトが付属している場合、インストール中にスクリプトが実行されます。この手順をスキップする場合は、このボックスにチェックを入れてください。</p>
                     </div>
                 </div>
             </div>
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Docker Image Configuration</h3>
+                    <h3 class="box-title">Dockerイメージ構成</h3>
                 </div>
                 <div class="box-body">
                     <div class="form-group">
-                        <label for="pDockerImage">Image</label>
+                        <label for="pDockerImage">イメージ</label>
                         <select id="pDockerImage" name="docker_image" class="form-control"></select>
-                        <input id="pDockerImageCustom" name="custom_docker_image" value="{{ old('custom_docker_image') }}" class="form-control" placeholder="Or enter a custom image..." style="margin-top:1rem"/>
-                        <p class="small text-muted no-margin">This is the Docker image that will be used to run this server. Select an image from the dropdown or enter a custom image in the text field above.</p>
+                        <input id="pDockerImageCustom" name="custom_docker_image" value="{{ old('custom_docker_image') }}" class="form-control" placeholder="またはカスタムイメージを入力..." style="margin-top:1rem"/>
+                        <p class="small text-muted no-margin">このサーバーの実行に使用されるDockerイメージです。ドロップダウンからイメージを選択するか、上のテキストフィールドにカスタムイメージを入力してください。</p>
                     </div>
                 </div>
             </div>
@@ -114,7 +114,7 @@
     }
 
     $(document).ready(function () {
-        $('#pEggId').select2({placeholder: 'Select a Nest Egg'}).on('change', function () {
+        $('#pEggId').select2({placeholder: 'ネストのエッグを選択'}).on('change', function () {
             var selectedEgg = _.isNull($(this).val()) ? $(this).find('option').first().val() : $(this).val();
             var parentChain = _.get(Pterodactyl.nests, $("#pNestId").val());
             var objectChain = _.get(parentChain, 'eggs.' + selectedEgg);
@@ -142,7 +142,7 @@
             }
 
             if (!_.get(objectChain, 'startup', false)) {
-                $('#pDefaultStartupCommand').val(_.get(parentChain, 'startup', 'ERROR: Startup Not Defined!'));
+                $('#pDefaultStartupCommand').val(_.get(parentChain, 'startup', 'エラー: 起動コマンドが定義されていません。'));
             } else {
                 $('#pDefaultStartupCommand').val(_.get(objectChain, 'startup'));
             }
@@ -150,7 +150,7 @@
             $('#appendVariablesTo').html('');
             $.each(_.get(objectChain, 'variables', []), function (i, item) {
                 var setValue = _.get(Pterodactyl.server_variables, item.env_variable, item.default_value);
-                var isRequired = (item.required === 1) ? '<span class="label label-danger">Required</span> ' : '';
+                var isRequired = (item.required === 1) ? '<span class="label label-danger">必須</span> ' : '';
                 var dataAppend = ' \
                     <div class="col-xs-12"> \
                         <div class="box"> \
@@ -162,8 +162,8 @@
                                 <p class="no-margin small text-muted">' + escapeHtml(item.description) + '</p> \
                             </div> \
                             <div class="box-footer"> \
-                                <p class="no-margin text-muted small"><strong>Startup Command Variable:</strong> <code>' + escapeHtml(item.env_variable) + '</code></p> \
-                                <p class="no-margin text-muted small"><strong>Input Rules:</strong> <code>' + escapeHtml(item.rules) + '</code></p> \
+                                <p class="no-margin text-muted small"><strong>起動コマンド変数:</strong> <code>' + escapeHtml(item.env_variable) + '</code></p> \
+                                <p class="no-margin text-muted small"><strong>入力ルール:</strong> <code>' + escapeHtml(item.rules) + '</code></p> \
                             </div> \
                         </div> \
                     </div>';
@@ -171,7 +171,7 @@
             });
         });
 
-        $('#pNestId').select2({placeholder: 'Select a Nest'}).on('change', function () {
+        $('#pNestId').select2({placeholder: 'ネストを選択'}).on('change', function () {
             $('#pEggId').html('').select2({
                 data: $.map(_.get(Pterodactyl.nests, $(this).val() + '.eggs', []), function (item) {
                     return {

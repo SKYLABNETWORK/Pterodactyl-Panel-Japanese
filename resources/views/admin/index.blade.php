@@ -5,10 +5,10 @@
 @endsection
 
 @section('content-header')
-    <h1>管理概要<small>システムを簡単に確認</small></h1>
+    <h1>管理概要<small>システムの状態をすばやく確認します。</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">管理</a></li>
-        <li class="active">インデックス</li>
+        <li class="active">トップ</li>
     </ol>
 @endsection
 
@@ -27,9 +27,9 @@
             </div>
             <div class="box-body">
                 @if ($version->isLatestPanel())
-                    Pterodactyl パネルのバージョン <code>{{ config('app.version') }}</code> を実行しています。パネルは最新です！
+                    Pterodactyl Panel バージョン <code>{{ config('app.version') }}</code> を実行しています。パネルは最新です。
                 @else
-                    パネルは <strong>最新ではありません！</strong> 最新バージョンは <a href="https://github.com/Pterodactyl/Panel/releases/v{{ $version->getPanel() }}" target="_blank"><code>{{ $version->getPanel() }}</code></a> です。現在実行中のバージョンは <code>{{ config('app.version') }}</code> です。
+                    パネルは<strong>最新ではありません。</strong> 最新バージョンは <a href="https://github.com/Pterodactyl/Panel/releases/v{{ $version->getPanel() }}" target="_blank"><code>{{ $version->getPanel() }}</code></a> で、現在実行中のバージョンは <code>{{ config('app.version') }}</code> です。
                 @endif
             </div>
         </div>
@@ -37,7 +37,7 @@
 </div>
 <div class="row">
     <div class="col-xs-6 col-sm-3 text-center">
-        <a href="{{ $version->getDiscord() }}"><button class="btn btn-warning" style="width:100%;"><i class="fa fa-fw fa-support"></i> ヘルプを得る <small>(Discord 経由)</small></button></a>
+        <a href="{{ $version->getDiscord() }}"><button class="btn btn-warning" style="width:100%;"><i class="fa fa-fw fa-support"></i> ヘルプを入手 <small>（Discord経由）</small></button></a>
     </div>
     <div class="col-xs-6 col-sm-3 text-center">
         <a href="https://pterodactyl.io"><button class="btn btn-primary" style="width:100%;"><i class="fa fa-fw fa-link"></i> ドキュメント</button></a>
@@ -47,7 +47,7 @@
         <a href="https://github.com/pterodactyl/panel"><button class="btn btn-primary" style="width:100%;"><i class="fa fa-fw fa-support"></i> GitHub</button></a>
     </div>
     <div class="col-xs-6 col-sm-3 text-center">
-        <a href="{{ $version->getDonations() }}"><button class="btn btn-success" style="width:100%;"><i class="fa fa-fw fa-money"></i> プロジェクトをサポート</button></a>
+        <a href="{{ $version->getDonations() }}"><button class="btn btn-success" style="width:100%;"><i class="fa fa-fw fa-money"></i> プロジェクトを支援</button></a>
     </div>
 </div>
 @endsection

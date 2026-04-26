@@ -32,8 +32,8 @@ export default () => {
             <DisableTOTPDialog open={visible === 'disable'} onClose={() => setVisible(null)} />
             <p css={tw`text-sm`}>
                 {isEnabled
-                    ? '現在、あなたのアカウントでは2段階認証が有効です。'
-                    : '現在、あなたのアカウントでは2段階認証が有効になっていません。下のボタンをクリックして設定を開始してください。'}
+                    ? 'アカウントで2段階認証が現在有効になっています。'
+                    : 'アカウントで2段階認証は現在有効になっていません。下のボタンをクリックして設定を開始してください。'}
             </p>
             <div css={tw`mt-6`}>
                 {isEnabled ? (

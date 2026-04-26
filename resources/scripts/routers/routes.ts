@@ -14,18 +14,18 @@ import AccountSSHContainer from '@/components/dashboard/ssh/AccountSSHContainer'
 import ActivityLogContainer from '@/components/dashboard/activity/ActivityLogContainer';
 import ServerActivityLogContainer from '@/components/server/ServerActivityLogContainer';
 
-// 各ルーターファイルはすでに適切にコード分割されています。
-// したがって、上記の項目は、そのルーターがロードされたときにのみロードされます。
+// Each of the router files is already code split out appropriately — so
+// all of the items above will only be loaded in when that router is loaded.
 //
-// これらの特定の遅延ロードされたルートは、特定のインスタンスにのみ必要な
-// サーバーダッシュボードの重い画面をロードしないようにするためのものです。
+// These specific lazy loaded routes are to avoid loading in heavy screens
+// for the server dashboard when they're only needed for specific instances.
 const FileEditContainer = lazy(() => import('@/components/server/files/FileEditContainer'));
 const ScheduleEditContainer = lazy(() => import('@/components/server/schedules/ScheduleEditContainer'));
 
 interface RouteDefinition {
     path: string;
-    // undefined が渡された場合、このルートはルーター自体にレンダリングされますが、
-    // サブナビゲーションメニューにはナビゲーションリンクが表示されません。
+    // If undefined is passed this route is still rendered into the router itself
+    // but no navigation link is displayed in the sub-navigation menu.
     name: string | undefined;
     component: React.ComponentType;
     exact?: boolean;
@@ -36,9 +36,9 @@ interface ServerRouteDefinition extends RouteDefinition {
 }
 
 interface Routes {
-    // "/account" 以下で利用可能なすべてのルート
+    // All of the routes available under "/account"
     account: RouteDefinition[];
-    // "/server/:id" 以下で利用可能なすべてのルート
+    // All of the routes available under "/server/:id"
     server: ServerRouteDefinition[];
 }
 
@@ -52,12 +52,12 @@ export default {
         },
         {
             path: '/api',
-            name: 'API 認証情報',
+            name: 'API認証情報',
             component: AccountApiContainer,
         },
         {
             path: '/ssh',
-            name: 'SSH キー',
+            name: 'SSHキー',
             component: AccountSSHContainer,
         },
         {
@@ -125,7 +125,7 @@ export default {
         {
             path: '/startup',
             permission: 'startup.*',
-            name: 'スタートアップ',
+            name: '起動',
             component: StartupContainer,
         },
         {

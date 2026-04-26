@@ -18,14 +18,14 @@ interface Values {
 
 const schema = object().shape({
     databaseName: string()
-        .required('データベース名を指定する必要があります。')
-        .min(3, 'データベース名は最低3文字必要です。')
-        .max(48, 'データベース名は48文字を超えてはいけません。')
+        .required('データベース名を入力してください。')
+        .min(3, 'データベース名は 3 文字以上である必要があります。')
+        .max(48, 'データベース名は 48 文字以内である必要があります。')
         .matches(
-            /^[\w\-.]{3,48}$/, 
-            'データベース名には英数字、アンダースコア、ハイフン、ピリオドのみ使用できます。'
+            /^[\w\-.]{3,48}$/,
+            'データベース名には英数字、アンダースコア、ダッシュ、ピリオドのみ使用できます。'
         ),
-    connectionsFrom: string().matches(/^[\w\-/.%:]+$/, '有効なホストアドレスを指定してください。'),
+    connectionsFrom: string().matches(/^[\w\-/.%:]+$/, '有効なホストアドレスを入力してください。'),
 });
 
 export default () => {
@@ -76,15 +76,17 @@ export default () => {
                                 id={'database_name'}
                                 name={'databaseName'}
                                 label={'データベース名'}
-                                description={'データベースインスタンスの説明的な名前。'}
+                                description={'データベースインスタンスを識別するための名前です。'}
                             />
                             <div css={tw`mt-6`}>
                                 <Field
                                     type={'string'}
                                     id={'connections_from'}
                                     name={'connectionsFrom'}
-                                    label={'接続許可ホスト'}
-                                    description={'接続を許可するホストを指定します。空欄の場合、すべてのホストからの接続を許可します。'}
+                                    label={'接続元'}
+                                    description={
+                                        '接続を許可する送信元です。空欄にすると、どこからでも接続を許可します。'
+                                    }
                                 />
                             </div>
                             <div css={tw`flex flex-wrap justify-end mt-6`}>

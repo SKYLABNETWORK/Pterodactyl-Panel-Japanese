@@ -46,7 +46,7 @@ export default () => {
                 <>
                     {schedules.length === 0 ? (
                         <p css={tw`text-sm text-center text-neutral-300`}>
-                            このサーバーにはスケジュールが設定されていません。
+                            このサーバーに設定されているスケジュールはありません。
                         </p>
                     ) : (
                         schedules.map((schedule) => (

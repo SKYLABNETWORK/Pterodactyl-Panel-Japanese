@@ -18,7 +18,7 @@ import useFlash from '@/plugins/useFlash';
 import { ServerContext } from '@/state/server';
 import ErrorBoundary from '@/components/elements/ErrorBoundary';
 import { encodePathSegments, hashToPath } from '@/helpers';
-import { dirname } from 'path';
+import { dirname } from 'pathe';
 import CodemirrorEditor from '@/components/elements/CodemirrorEditor';
 
 export default () => {
@@ -94,10 +94,11 @@ export default () => {
             {hash.replace(/^#/, '').endsWith('.pteroignore') && (
                 <div css={tw`mb-4 p-4 border-l-4 bg-neutral-900 rounded border-cyan-400`}>
                     <p css={tw`text-neutral-300 text-sm`}>
-                        <code css={tw`font-mono bg-black rounded py-px px-1`}>.pteroignore</code> ファイルを編集しています。  
-                        ここに記述されたファイルやディレクトリはバックアップから除外されます。  
-                        ワイルドカードはアスタリスク (<code css={tw`font-mono bg-black rounded py-px px-1`}>*</code>) で指定可能です。  
-                        先のルールを否定したい場合は感嘆符 (<code css={tw`font-mono bg-black rounded py-px px-1`}>!</code>) を先頭に付けてください。
+                        <code css={tw`font-mono bg-black rounded py-px px-1`}>.pteroignore</code>{' '}
+                        ファイルを編集中です。ここに記載されたファイルやディレクトリはバックアップから除外されます。アスタリスク
+                        （<code css={tw`font-mono bg-black rounded py-px px-1`}>*</code>）を使ったワイルドカードに対応しています。
+                        先頭に感嘆符を付けることで、前のルールを否定できます（
+                        <code css={tw`font-mono bg-black rounded py-px px-1`}>!</code>）。
                     </p>
                 </div>
             )}

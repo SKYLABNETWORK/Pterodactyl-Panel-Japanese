@@ -32,6 +32,7 @@ const CopyOnClick = ({ text, showInNotification = true, children }: CopyOnClickP
     const child = !text
         ? React.Children.only(children)
         : React.cloneElement(React.Children.only(children), {
+              // @ts-expect-error todo: check on this
               className: classNames(children.props.className || '', 'cursor-pointer'),
               onClick: (e: React.MouseEvent<HTMLElement>) => {
                   copy(String(text));
@@ -51,7 +52,7 @@ const CopyOnClick = ({ text, showInNotification = true, children }: CopyOnClickP
                             <div className={'rounded-md py-3 px-4 text-gray-200 bg-neutral-600/95 shadow'}>
                                 <p>
                                     {showInNotification
-                                        ? `"${String(text)}"をクリップボードにコピーしました。`
+                                        ? `「${String(text)}」をクリップボードにコピーしました。`
                                         : 'テキストをクリップボードにコピーしました。'}
                                 </p>
                             </div>

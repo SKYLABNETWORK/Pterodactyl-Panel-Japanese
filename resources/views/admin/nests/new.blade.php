@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
 @section('title')
-    New Nest
+    新しいネスト
 @endsection
 
 @section('content-header')
-    <h1>New Nest<small>Configure a new nest to deploy to all nodes.</small></h1>
+    <h1>新しいネスト<small>すべてのノードへデプロイする新しいネストを構成します。</small></h1>
     <ol class="breadcrumb">
-        <li><a href="{{ route('admin.index') }}">Admin</a></li>
-        <li><a href="{{ route('admin.nests') }}">Nests</a></li>
-        <li class="active">New</li>
+        <li><a href="{{ route('admin.index') }}">管理</a></li>
+        <li><a href="{{ route('admin.nests') }}">ネスト</a></li>
+        <li class="active">新規</li>
     </ol>
 @endsection
 
@@ -19,18 +19,18 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">New Nest</h3>
+                    <h3 class="box-title">新しいネスト</h3>
                 </div>
                 <div class="box-body">
                     <div class="form-group">
-                        <label class="control-label">Name</label>
+                        <label class="control-label">名前</label>
                         <div>
                             <input type="text" name="name" class="form-control" value="{{ old('name') }}" />
-                            <p class="text-muted"><small>This should be a descriptive category name that encompasses all of the eggs within the nest.</small></p>
+                            <p class="text-muted"><small>このネスト内のすべてのエッグを包括する、説明的なカテゴリー名にしてください。</small></p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label">Description</label>
+                        <label class="control-label">説明</label>
                         <div>
                             <textarea name="description" class="form-control" rows="6">{{ old('description') }}</textarea>
                         </div>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="box-footer">
                     {!! csrf_field() !!}
-                    <button type="submit" class="btn btn-primary pull-right">Save</button>
+                    <button type="submit" class="btn btn-primary pull-right">保存</button>
                 </div>
             </div>
         </div>

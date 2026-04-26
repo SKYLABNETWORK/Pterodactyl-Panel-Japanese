@@ -74,13 +74,13 @@ const ConfigureTwoFactorForm = ({ onTokens }: Props) => {
                 </p>
             </CopyOnClick>
             <p id={'totp-code-description'} className={'mt-6'}>
-                上のQRコードを、お好きな2段階認証アプリでスキャンしてください。その後、表示された6桁のコードを下のフィールドに入力してください。
+                任意の2段階認証アプリで上のQRコードをスキャンしてください。その後、生成された6桁のコードを下のフィールドに入力してください。
             </p>
             <Input.Text
                 aria-labelledby={'totp-code-description'}
                 variant={Input.Text.Variants.Loose}
                 value={value}
-                onChange={(e) => setValue(e.currentTarget.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)}
                 className={'mt-3'}
                 placeholder={'000000'}
                 type={'text'}
@@ -89,14 +89,14 @@ const ConfigureTwoFactorForm = ({ onTokens }: Props) => {
                 pattern={'\\d{6}'}
             />
             <label htmlFor={'totp-password'} className={'block mt-3'}>
-                アカウントのパスワード
+                アカウントパスワード
             </label>
             <Input.Text
                 variant={Input.Text.Variants.Loose}
                 className={'mt-1'}
                 type={'password'}
                 value={password}
-                onChange={(e) => setPassword(e.currentTarget.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
             />
             <Dialog.Footer>
                 <Button.Text onClick={close}>キャンセル</Button.Text>
@@ -104,8 +104,8 @@ const ConfigureTwoFactorForm = ({ onTokens }: Props) => {
                     disabled={password.length > 0 && value.length === 6}
                     content={
                         !token
-                            ? 'QRコードを読み込み中です...'
-                            : '続行するには、6桁のコードとパスワードを入力する必要があります。'
+                            ? 'QRコードの読み込みを待機しています...'
+                            : '続行するには6桁のコードとパスワードを入力してください。'
                     }
                     delay={100}
                 >
@@ -114,7 +114,7 @@ const ConfigureTwoFactorForm = ({ onTokens }: Props) => {
                         type={'submit'}
                         form={'enable-totp-form'}
                     >
-                        有効にする
+                        有効化
                     </Button>
                 </Tooltip>
             </Dialog.Footer>
@@ -123,7 +123,7 @@ const ConfigureTwoFactorForm = ({ onTokens }: Props) => {
 };
 
 export default asDialog({
-    title: '2段階認証を有効にする',
+    title: '2段階認証を有効化',
     description:
-        '不正アクセスからアカウントを保護しましょう。サインインするたびに認証コードの入力を求められるようになります。',
+        '不正アクセスからアカウントを保護します。サインインするたびに確認コードの入力を求められます。',
 })(ConfigureTwoFactorForm);

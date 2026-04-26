@@ -27,6 +27,19 @@ interface Values {
     permissions: string[];
 }
 
+const permissionGroupDescriptions: Record<string, string> = {
+    control: 'サーバーの電源状態の制御やコマンド送信に関する権限です。',
+    user: 'サーバー上の他のサブユーザーを管理するための権限です。自分自身のアカウント編集や、自分が持たない権限の付与はできません。',
+    file: 'このサーバーのファイルシステムを変更するための権限です。',
+    backup: 'サーバーバックアップの生成と管理に関する権限です。',
+    allocation: 'このサーバーのポート割り当てを変更するための権限です。',
+    startup: 'このサーバーの起動パラメーターを表示または変更するための権限です。',
+    database: 'このサーバーのデータベース管理に関する権限です。',
+    schedule: 'このサーバーのスケジュール管理に関する権限です。',
+    settings: 'このサーバーの設定へアクセスするための権限です。',
+    activity: 'サーバーのアクティビティログへアクセスするための権限です。',
+};
+
 const EditSubuserModal = ({ subuser }: Props) => {
     const ref = useRef<HTMLHeadingElement>(null);
     const uuid = ServerContext.useStoreState((state) => state.server.data!.uuid);
@@ -38,11 +51,12 @@ const EditSubuserModal = ({ subuser }: Props) => {
 
     const isRootAdmin = useStoreState((state) => state.user.data!.rootAdmin);
     const permissions = useStoreState((state) => state.permissions.data);
-    // 現在ログインしているユーザーの権限。変更・追加できるのはこの中の権限のみ。
+    // The currently logged in user's permissions. We're going to filter out any permissions
+    // that they should not need.
     const loggedInPermissions = ServerContext.useStoreState((state) => state.server.permissions);
     const [canEditUser] = usePermissions(subuser ? ['user.update'] : ['user.create']);
 
-    // ユーザーが変更可能な権限一覧
+    // The permissions that can be modified by this user.
     const editablePermissions = useDeepCompareMemo(() => {
         const cleaned = Object.keys(permissions).map((key) =>
             Object.keys(permissions[key].keys).map((pkey) => `${key}.${pkey}`)
@@ -95,7 +109,7 @@ const EditSubuserModal = ({ subuser }: Props) => {
             }
             validationSchema={object().shape({
                 email: string()
-                    .max(191, 'メールアドレスは191文字以内で入力してください。')
+                    .max(191, 'メールアドレスは 191 文字以内である必要があります。')
                     .email('有効なメールアドレスを入力してください。')
                     .required('有効なメールアドレスを入力してください。'),
                 permissions: array().of(string()),
@@ -105,8 +119,8 @@ const EditSubuserModal = ({ subuser }: Props) => {
                 <div css={tw`flex justify-between`}>
                     <h2 css={tw`text-2xl`} ref={ref}>
                         {subuser
-                            ? `${canEditUser ? '権限を変更' : '権限を表示'} - ${subuser.email}`
-                            : '新しいサブユーザーの作成'}
+                            ? `${subuser.email} の権限を${canEditUser ? '変更' : '表示'}`
+                            : '新しいサブユーザーを作成'}
                     </h2>
                     <div>
                         <Button type={'submit'} css={tw`w-full sm:w-auto`}>
@@ -118,7 +132,7 @@ const EditSubuserModal = ({ subuser }: Props) => {
                 {!isRootAdmin && loggedInPermissions[0] !== '*' && (
                     <div css={tw`mt-4 pl-4 py-2 border-l-4 border-cyan-400`}>
                         <p css={tw`text-sm text-neutral-300`}>
-                            サブユーザーの作成・変更時に選択可能な権限は、現在のアカウントに割り当てられている権限のみです。
+                            他のユーザーを作成または変更するときは、現在あなたのアカウントに割り当てられている権限のみ選択できます。
                         </p>
                     </div>
                 )}
@@ -127,7 +141,9 @@ const EditSubuserModal = ({ subuser }: Props) => {
                         <Field
                             name={'email'}
                             label={'ユーザーのメールアドレス'}
-                            description={'このサーバーのサブユーザーとして招待したいユーザーのメールアドレスを入力してください。'}
+                            description={
+                                'このサーバーのサブユーザーとして招待するユーザーのメールアドレスを入力してください。'
+                            }
                         />
                     </div>
                 )}
@@ -142,7 +158,9 @@ const EditSubuserModal = ({ subuser }: Props) => {
                                 permissions={Object.keys(permissions[key].keys).map((pkey) => `${key}.${pkey}`)}
                                 css={index > 0 ? tw`mt-4` : undefined}
                             >
-                                <p css={tw`text-sm text-neutral-400 mb-4`}>{permissions[key].description}</p>
+                                <p css={tw`text-sm text-neutral-400 mb-4`}>
+                                    {permissionGroupDescriptions[key] || permissions[key].description}
+                                </p>
                                 {Object.keys(permissions[key].keys).map((pkey) => (
                                     <PermissionRow
                                         key={`permission_${key}.${pkey}`}

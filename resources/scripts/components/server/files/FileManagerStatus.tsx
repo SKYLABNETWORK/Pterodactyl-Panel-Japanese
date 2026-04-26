@@ -68,7 +68,7 @@ const FileUploadList = () => {
 
 const FileUploadListDialog = asDialog({
     title: 'ファイルアップロード',
-    description: 'サーバーにアップロード中のファイルです。',
+    description: '次のファイルをサーバーへアップロードしています。',
 })(FileUploadList);
 
 export default () => {
@@ -89,7 +89,7 @@ export default () => {
     return (
         <>
             {count > 0 && (
-                <Tooltip content={`${count} 個のファイルをアップロード中、クリックして表示`}>
+                <Tooltip content={`${count} 個のファイルをアップロード中です。クリックして表示します`}>
                     <button
                         className={'flex items-center justify-center w-10 h-10'}
                         onClick={() => (open.value = true)}

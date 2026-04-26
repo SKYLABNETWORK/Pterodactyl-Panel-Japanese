@@ -48,14 +48,14 @@ const DisableTOTPDialog = () => {
                 type={'password'}
                 variant={Input.Text.Variants.Loose}
                 value={password}
-                onChange={(e) => setPassword(e.currentTarget.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
             />
             <Dialog.Footer>
                 <Button.Text onClick={close}>キャンセル</Button.Text>
                 <Tooltip
                     delay={100}
                     disabled={password.length > 0}
-                    content={'続行するにはアカウントのパスワードを入力する必要があります。'}
+                    content={'続行するにはアカウントのパスワードを入力してください。'}
                 >
                     <Button.Danger type={'submit'} form={'disable-totp-form'} disabled={submitting || !password.length}>
                         無効化
@@ -67,6 +67,6 @@ const DisableTOTPDialog = () => {
 };
 
 export default asDialog({
-    title: '2段階認証を無効にする',
-    description: '2段階認証を無効にすると、アカウントのセキュリティが低下します。',
+    title: '2段階認証を無効化',
+    description: '2段階認証を無効にすると、アカウントの安全性が低下します。',
 })(DisableTOTPDialog);

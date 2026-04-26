@@ -52,9 +52,9 @@ export default () => {
                             <Field name={'name'} as={Input} />
                         </FormikFieldWrapper>
                         <FormikFieldWrapper
-                            label={'公開鍵'}
+                            label={'公開キー'}
                             name={'publicKey'}
-                            description={'公開SSHキーを入力してください。'}
+                            description={'SSH公開キーを入力してください。'}
                         >
                             <Field name={'publicKey'} as={CustomTextarea} />
                         </FormikFieldWrapper>

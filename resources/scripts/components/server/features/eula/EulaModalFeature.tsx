@@ -65,9 +65,9 @@ const EulaModalFeature = () => {
             showSpinnerOverlay={loading}
         >
             <FlashMessageRender key={'feature:eula'} css={tw`mb-4`} />
-            <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Minecraft&reg; EULA に同意する</h2>
+            <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Minecraft&reg; EULA に同意</h2>
             <p css={tw`text-neutral-200`}>
-                下の「同意する」を押すことで、以下の&nbsp;
+                下の「同意する」を押すことで、以下に同意したものとみなされます:&nbsp;
                 <a
                     target={'_blank'}
                     css={tw`text-primary-300 underline transition-colors duration-150 hover:text-primary-400`}
@@ -76,7 +76,7 @@ const EulaModalFeature = () => {
                 >
                     Minecraft&reg; EULA
                 </a>
-                に同意したことを示します。
+                .
             </p>
             <div css={tw`mt-8 sm:flex items-center justify-end`}>
                 <Button isSecondary onClick={() => setVisible(false)} css={tw`w-full sm:w-auto border-transparent`}>

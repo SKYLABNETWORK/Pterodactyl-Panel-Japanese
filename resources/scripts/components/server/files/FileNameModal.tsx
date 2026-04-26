@@ -4,7 +4,7 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import { object, string } from 'yup';
 import Field from '@/components/elements/Field';
 import { ServerContext } from '@/state/server';
-import { join } from 'path';
+import { join } from 'pathe';
 import tw from 'twin.macro';
 import Button from '@/components/elements/Button';
 
@@ -29,7 +29,7 @@ export default ({ onFileNamed, onDismissed, ...props }: Props) => {
             onSubmit={submit}
             initialValues={{ fileName: '' }}
             validationSchema={object().shape({
-                fileName: string().required().min(1),
+                fileName: string().required('ファイル名を入力してください。').min(1, 'ファイル名を入力してください。'),
             })}
         >
             {({ resetForm }) => (

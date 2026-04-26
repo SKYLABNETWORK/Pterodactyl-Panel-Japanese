@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 
 @section('title')
-    List Users
+    ユーザー一覧
 @endsection
 
 @section('content-header')
-    <h1>Users<small>All registered users on the system.</small></h1>
+    <h1>ユーザー<small>システムに登録されているすべてのユーザーです。</small></h1>
     <ol class="breadcrumb">
-        <li><a href="{{ route('admin.index') }}">Admin</a></li>
-        <li class="active">Users</li>
+        <li><a href="{{ route('admin.index') }}">管理</a></li>
+        <li class="active">ユーザー</li>
     </ol>
 @endsection
 
@@ -17,14 +17,14 @@
     <div class="col-xs-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">User List</h3>
+                <h3 class="box-title">ユーザー一覧</h3>
                 <div class="box-tools search01">
                     <form action="{{ route('admin.users') }}" method="GET">
                         <div class="input-group input-group-sm">
-                            <input type="text" name="filter[email]" class="form-control pull-right" value="{{ request()->input('filter.email') }}" placeholder="Search">
+                            <input type="text" name="filter[email]" class="form-control pull-right" value="{{ request()->input('filter.email') }}" placeholder="検索">
                             <div class="input-group-btn">
                                 <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                                <a href="{{ route('admin.users.new') }}"><button type="button" class="btn btn-sm btn-primary" style="border-radius: 0 3px 3px 0;margin-left:-1px;">Create New</button></a>
+                                <a href="{{ route('admin.users.new') }}"><button type="button" class="btn btn-sm btn-primary" style="border-radius: 0 3px 3px 0;margin-left:-1px;">新規作成</button></a>
                             </div>
                         </div>
                     </form>
@@ -35,12 +35,12 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Email</th>
-                            <th>Client Name</th>
-                            <th>Username</th>
+                            <th>メール</th>
+                            <th>クライアント名</th>
+                            <th>ユーザー名</th>
                             <th class="text-center">2FA</th>
-                            <th class="text-center"><span data-toggle="tooltip" data-placement="top" title="Servers that this user is marked as the owner of.">Servers Owned</span></th>
-                            <th class="text-center"><span data-toggle="tooltip" data-placement="top" title="Servers that this user can access because they are marked as a subuser.">Can Access</span></th>
+                            <th class="text-center"><span data-toggle="tooltip" data-placement="top" title="このユーザーが所有者として設定されているサーバーです。">所有サーバー</span></th>
+                            <th class="text-center"><span data-toggle="tooltip" data-placement="top" title="このユーザーがサブユーザーとして設定されているためアクセスできるサーバーです。">アクセス可能</span></th>
                             <th></th>
                         </tr>
                     </thead>

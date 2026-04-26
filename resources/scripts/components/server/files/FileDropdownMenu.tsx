@@ -14,7 +14,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import RenameFileModal from '@/components/server/files/RenameFileModal';
 import { ServerContext } from '@/state/server';
-import { join } from 'path';
+import { join } from 'pathe';
 import deleteFiles from '@/api/server/files/deleteFiles';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
 import copyFile from '@/api/server/files/copyFile';
@@ -74,8 +74,8 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
     const doDeletion = () => {
         clearFlashes('files');
 
-        // UIの高速化のため、削除処理を呼ぶ前にリストからファイルを即時削除します。
-        // 削除が失敗した場合は、自動的に現在のディレクトリ内容を再取得します。
+        // For UI speed, immediately remove the file from the listing before calling the deletion function.
+        // If the delete actually fails, we'll fetch the current directory contents again automatically.
         mutate((files) => files.filter((f) => f.key !== file.key), false);
 
         deleteFiles(uuid, directory, [file.name]).catch((error) => {
@@ -100,7 +100,7 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
 
         getFileDownloadUrl(uuid, join(directory, file.name))
             .then((url) => {
-                // @ts-expect-error これは有効です
+                // @ts-expect-error this is valid
                 window.location = url;
             })
             .catch((error) => clearAndAddHttpError({ key: 'files', error }))
@@ -136,7 +136,8 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
                 confirm={'削除'}
                 onConfirmed={doDeletion}
             >
-                <span className={'font-semibold text-gray-50'}>{file.name}</span> を削除すると内容を復元できなくなります。
+                削除すると、<span className={'font-semibold text-gray-50'}>{file.name}</span>
+                の内容を復元できなくなります。
             </Dialog.Confirm>
             <DropdownMenu
                 ref={onClickRef}
@@ -177,11 +178,11 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
                 )}
                 {file.isArchiveType() ? (
                     <Can action={'file.create'}>
-                        <Row onClick={doUnarchive} icon={faBoxOpen} title={'解凍'} />
+                        <Row onClick={doUnarchive} icon={faBoxOpen} title={'展開'} />
                     </Can>
                 ) : (
                     <Can action={'file.archive'}>
-                        <Row onClick={doArchive} icon={faFileArchive} title={'圧縮'} />
+                        <Row onClick={doArchive} icon={faFileArchive} title={'アーカイブ'} />
                     </Can>
                 )}
                 {file.isFile && <Row onClick={doDownload} icon={faFileDownload} title={'ダウンロード'} />}

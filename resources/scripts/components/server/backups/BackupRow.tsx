@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArchive, faEllipsisH, faLock } from '@fortawesome/free-solid-svg-icons';
 import { format, formatDistanceToNow } from 'date-fns';
+import { ja } from 'date-fns/locale';
 import Spinner from '@/components/elements/Spinner';
 import { bytesToString } from '@/lib/formatters';
 import Can from '@/components/elements/Can';
@@ -81,10 +82,10 @@ export default ({ backup, className }: Props) => {
                 </div>
             </div>
             <div css={tw`flex-1 md:flex-none md:w-48 mt-4 md:mt-0 md:ml-8 md:text-center`}>
-                <p title={format(backup.createdAt, 'ddd, MMMM do, yyyy HH:mm:ss')} css={tw`text-sm`}>
-                    {formatDistanceToNow(backup.createdAt, { includeSeconds: true, addSuffix: true })}
+                <p title={format(backup.createdAt, 'yyyy年M月d日(E) HH:mm:ss', { locale: ja })} css={tw`text-sm`}>
+                    {formatDistanceToNow(backup.createdAt, { includeSeconds: true, addSuffix: true, locale: ja })}
                 </p>
-                <p css={tw`text-2xs text-neutral-500 uppercase mt-1`}>作成</p>
+                <p css={tw`text-2xs text-neutral-500 uppercase mt-1`}>作成日時</p>
             </div>
             <Can action={['backup.download', 'backup.restore', 'backup.delete']} matchAny>
                 <div css={tw`mt-4 md:mt-0 ml-6`} style={{ marginRight: '-0.5rem' }}>

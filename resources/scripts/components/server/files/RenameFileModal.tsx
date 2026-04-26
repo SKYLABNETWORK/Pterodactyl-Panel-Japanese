@@ -2,7 +2,7 @@ import React from 'react';
 import Modal, { RequiredModalProps } from '@/components/elements/Modal';
 import { Form, Formik, FormikHelpers } from 'formik';
 import Field from '@/components/elements/Field';
-import { join } from 'path';
+import { join } from 'pathe';
 import renameFiles from '@/api/server/files/renameFiles';
 import { ServerContext } from '@/state/server';
 import tw from 'twin.macro';
@@ -29,10 +29,10 @@ const RenameFileModal = ({ files, useMoveTerminology, ...props }: OwnProps) => {
         const len = name.split('/').length;
         if (files.length === 1) {
             if (!useMoveTerminology && len === 1) {
-                // 同じディレクトリ内でファイル名を変更する場合
+                // Rename the file within this directory.
                 mutate((data) => data.map((f) => (f.name === files[0] ? { ...f, name } : f)), false);
             } else if (useMoveTerminology || len > 1) {
-                // ファイルを別の場所へ移動した場合、現在のディレクトリからは削除する
+                // Remove the file from this directory since they moved it elsewhere.
                 mutate((data) => data.filter((f) => f.name !== files[0]), false);
             }
         }
@@ -69,7 +69,7 @@ const RenameFileModal = ({ files, useMoveTerminology, ...props }: OwnProps) => {
                                     label={'ファイル名'}
                                     description={
                                         useMoveTerminology
-                                            ? 'このファイルまたはフォルダの新しい名前とディレクトリを、現在のディレクトリからの相対パスで入力してください。'
+                                            ? '現在のディレクトリからの相対パスで、このファイルまたはフォルダーの新しい名前とディレクトリを入力してください。'
                                             : undefined
                                     }
                                     autoFocus

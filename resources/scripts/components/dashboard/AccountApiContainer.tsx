@@ -42,26 +42,26 @@ export default () => {
     };
 
     return (
-        <PageContentBlock title={'アカウント API'}>
+        <PageContentBlock title={'アカウントAPI'}>
             <FlashMessageRender byKey={'account'} />
             <div css={tw`md:flex flex-nowrap my-10`}>
-                <ContentBox title={'API キーを作成'} css={tw`flex-none w-full md:w-1/2`}>
+                <ContentBox title={'APIキーを作成'} css={tw`flex-none w-full md:w-1/2`}>
                     <CreateApiKeyForm onKeyCreated={(key) => setKeys((s) => [...s!, key])} />
                 </ContentBox>
-                <ContentBox title={'API キー'} css={tw`flex-1 overflow-hidden mt-8 md:mt-0 md:ml-8`}>
+                <ContentBox title={'APIキー'} css={tw`flex-1 overflow-hidden mt-8 md:mt-0 md:ml-8`}>
                     <SpinnerOverlay visible={loading} />
                     <Dialog.Confirm
-                        title={'API キーを削除'}
+                        title={'APIキーを削除'}
                         confirm={'キーを削除'}
                         open={!!deleteIdentifier}
                         onClose={() => setDeleteIdentifier('')}
                         onConfirmed={() => doDeletion(deleteIdentifier)}
                     >
-                        <Code>{deleteIdentifier}</Code>キーを使用するすべてのリクエストは無効になります。
+                        <Code>{deleteIdentifier}</Code> キーを使用するすべてのリクエストが無効化されます。
                     </Dialog.Confirm>
                     {keys.length === 0 ? (
                         <p css={tw`text-center text-sm`}>
-                            {loading ? '読み込み中...' : 'このアカウントにはAPIキーが存在しません。'}
+                            {loading ? '読み込み中...' : 'このアカウントにはAPIキーがありません。'}
                         </p>
                     ) : (
                         keys.map((key, index) => (
@@ -73,8 +73,8 @@ export default () => {
                                 <div css={tw`ml-4 flex-1 overflow-hidden`}>
                                     <p css={tw`text-sm break-words`}>{key.description}</p>
                                     <p css={tw`text-2xs text-neutral-300 uppercase`}>
-                                        最終使用日:&nbsp;
-                                        {key.lastUsedAt ? format(key.lastUsedAt, 'yyyy年M月d日 HH:mm') : 'なし'}
+                                        最終使用:&nbsp;
+                                        {key.lastUsedAt ? format(key.lastUsedAt, 'MMM do, yyyy HH:mm') : 'なし'}
                                     </p>
                                 </div>
                                 <p css={tw`text-sm ml-4 hidden md:block`}>

@@ -4,6 +4,7 @@ import { FitAddon } from 'xterm-addon-fit';
 import { SearchAddon } from 'xterm-addon-search';
 import { SearchBarAddon } from 'xterm-addon-search-bar';
 import { WebLinksAddon } from 'xterm-addon-web-links';
+import { Unicode11Addon } from 'xterm-addon-unicode11';
 import { ScrollDownHelperAddon } from '@/plugins/XtermScrollDownHelperAddon';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
 import { ServerContext } from '@/state/server';
@@ -59,6 +60,7 @@ export default () => {
     const searchAddon = new SearchAddon();
     const searchBar = new SearchBarAddon({ searchAddon });
     const webLinksAddon = new WebLinksAddon();
+    const unicode11Addon = new Unicode11Addon();
     const scrollDownHelperAddon = new ScrollDownHelperAddon();
     const { connected, instance } = ServerContext.useStoreState((state) => state.socket);
     const [canSendCommands] = usePermissions(['control.console']);
@@ -77,7 +79,7 @@ export default () => {
 
     const handleTransferStatus = (status: string) => {
         switch (status) {
-            // 失敗時はソースまたはターゲットノードから送信されます。
+            // Sent by either the source or target node if a failure occurs.
             case 'failure':
                 terminal.writeln(TERMINAL_PRELUDE + '転送に失敗しました。\u001b[0m');
                 return;
@@ -90,7 +92,7 @@ export default () => {
         );
 
     const handlePowerChangeEvent = (state: string) =>
-        terminal.writeln(TERMINAL_PRELUDE + 'サーバーが ' + state + ' 状態に変更されました...\u001b[0m');
+        terminal.writeln(TERMINAL_PRELUDE + 'サーバー状態が ' + state + ' に変更されました...\u001b[0m');
 
     const handleCommandKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'ArrowUp') {
@@ -99,7 +101,8 @@ export default () => {
             setHistoryIndex(newIndex);
             e.currentTarget.value = history![newIndex] || '';
 
-            // デフォルトでは上矢印で行の先頭にカーソルが移動するため、防止して行末に保持します。
+            // By default up arrow will also bring the cursor to the start of the line,
+            // so we'll preventDefault to keep it at the end.
             e.preventDefault();
         }
 
@@ -126,13 +129,18 @@ export default () => {
             terminal.loadAddon(searchAddon);
             terminal.loadAddon(searchBar);
             terminal.loadAddon(webLinksAddon);
+            terminal.loadAddon(unicode11Addon);
             terminal.loadAddon(scrollDownHelperAddon);
 
             terminal.open(ref.current);
+
+            // Activate Unicode 11 for proper emoji and special character width handling
+            terminal.unicode.activeVersion = '11';
+
             fitAddon.fit();
             searchBar.addNewStyle(zIndex);
 
-            // キーキャプチャのサポートを追加
+            // Add support for capturing keys
             terminal.attachCustomKeyEventHandler((e: KeyboardEvent) => {
                 if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
                     document.execCommand('copy');
@@ -170,7 +178,7 @@ export default () => {
         };
 
         if (connected && instance) {
-            // 転送中でなければコンソールをクリア
+            // Do not clear the console if the server is being transferred.
             if (!isTransferring) {
                 terminal.clear();
             }
@@ -206,7 +214,7 @@ export default () => {
                         className={classNames('peer', styles.command_input)}
                         type={'text'}
                         placeholder={'コマンドを入力...'}
-                        aria-label={'コンソールコマンド入力'}
+                        aria-label={'コンソールコマンド入力。'}
                         disabled={!instance || !connected}
                         onKeyDown={handleCommandKeyDown}
                         autoCorrect={'off'}

@@ -27,7 +27,7 @@ class ErrorBoundary extends React.Component<{}, State> {
                 <div css={tw`flex items-center bg-neutral-900 rounded p-3 text-red-500`}>
                     <Icon icon={faExclamationTriangle} css={tw`h-4 w-auto mr-2`} />
                     <p css={tw`text-sm text-neutral-100`}>
-                        このビューのレンダリング中にアプリケーションでエラーが発生しました。ページを更新してください。
+                        このビューのレンダリング中にアプリケーションでエラーが発生しました。ページを再読み込みしてください。
                     </p>
                 </div>
             </div>

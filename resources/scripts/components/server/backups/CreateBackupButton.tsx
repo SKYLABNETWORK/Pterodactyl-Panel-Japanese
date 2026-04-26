@@ -32,15 +32,17 @@ const ModalContent = ({ ...props }: RequiredModalProps) => {
                 <Field
                     name={'name'}
                     label={'バックアップ名'}
-                    description={'指定した場合、このバックアップを参照する際の名前として使用されます。'}
+                    description={'入力した場合、このバックアップを識別するための名前として使用されます。'}
                 />
                 <div css={tw`mt-6`}>
                     <FormikFieldWrapper
                         name={'ignored'}
                         label={'除外するファイルとディレクトリ'}
                         description={`
-                            バックアップ生成時に除外するファイルまたはフォルダを入力します。空欄の場合、サーバーディレクトリのルートに.pteroignoreファイルがあればその内容が使用されます。
-                            ワイルドカードマッチや、パスの先頭に感嘆符を付けてルールを無効化することがサポートされています。
+                            このバックアップの生成時に除外するファイルまたはフォルダーを入力してください。空欄の場合、
+                            サーバーディレクトリのルートに .pteroignore ファイルが存在すれば、その内容を使用します。
+                            ファイルやフォルダーのワイルドカード一致に加え、パスの先頭に感嘆符を付けることで
+                            ルールの否定にも対応しています。
                         `}
                     >
                         <FormikField as={Textarea} name={'ignored'} rows={6} />
@@ -50,8 +52,8 @@ const ModalContent = ({ ...props }: RequiredModalProps) => {
                     <div css={tw`mt-6 bg-neutral-700 border border-neutral-800 shadow-inner p-4 rounded`}>
                         <FormikSwitch
                             name={'isLocked'}
-                            label={'ロック'}
-                            description={'明示的に解除されるまで、このバックアップの削除を防ぎます。'}
+                            label={'ロック済み'}
+                            description={'明示的にロックを解除するまで、このバックアップが削除されないようにします。'}
                         />
                     </div>
                 </Can>

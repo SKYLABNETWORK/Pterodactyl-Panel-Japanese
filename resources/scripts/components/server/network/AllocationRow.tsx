@@ -77,7 +77,7 @@ const AllocationRow = ({ allocation }: Props) => {
                             <Code dark>{ip(allocation.ip)}</Code>
                         </CopyOnClick>
                     )}
-                    <Label>{allocation.alias ? 'ホスト名' : 'IPアドレス'}</Label>
+                    <Label>{allocation.alias ? 'ホスト名' : 'IP アドレス'}</Label>
                 </div>
                 <div className={'w-16 md:w-24 overflow-hidden'}>
                     <Code dark>{allocation.port}</Code>

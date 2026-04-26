@@ -16,7 +16,7 @@ const Checkbox = ({ name, value, className, ...props }: Props & InputProps) => (
     <Field name={name}>
         {({ field, form }: FieldProps) => {
             if (!Array.isArray(field.value)) {
-                console.error('配列ではないフィールド値を使用してチェックボックスをマウントしようとしています。');
+                console.error('Attempting to mount a checkbox using a field value that is not an array.');
 
                 return null;
             }

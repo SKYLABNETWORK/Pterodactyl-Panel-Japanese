@@ -20,7 +20,8 @@ import FormikSwitch from '@/components/elements/FormikSwitch';
 
 interface Props {
     schedule: Schedule;
-    // タスクが渡されていれば編集モード、なければ新規作成モードです。
+    // If a task is provided we can assume we're editing it. If not provided,
+    // we are creating a new one.
     task?: Task;
 }
 
@@ -32,18 +33,18 @@ interface Values {
 }
 
 const schema = object().shape({
-    action: string().required().oneOf(['command', 'power', 'backup']),
+    action: string().required('操作を選択してください。').oneOf(['command', 'power', 'backup'], '有効な操作を選択してください。'),
     payload: string().when('action', {
         is: (v) => v !== 'backup',
-        then: string().required('タスクのペイロードは必須です。'),
+        then: string().required('タスクの内容を入力してください。'),
         otherwise: string(),
     }),
     continueOnFailure: boolean(),
     timeOffset: number()
-        .typeError('タイムオフセットは0〜900の有効な数値でなければなりません。')
-        .required('タイムオフセットの値を入力してください。')
-        .min(0, 'タイムオフセットは0秒以上でなければなりません。')
-        .max(900, 'タイムオフセットは900秒未満でなければなりません。'),
+        .typeError('時間オフセットは 0 から 900 の有効な数値である必要があります。')
+        .required('時間オフセットを入力してください。')
+        .min(0, '時間オフセットは 0 秒以上である必要があります。')
+        .max(900, '時間オフセットは 900 秒未満である必要があります。'),
 });
 
 const ActionListener = () => {
@@ -82,7 +83,7 @@ const TaskDetailsModal = ({ schedule, task }: Props) => {
         if (backupLimit === 0 && values.action === 'backup') {
             setSubmitting(false);
             addError({
-                message: "サーバーのバックアップ上限が0に設定されている場合、バックアップタスクは作成できません。",
+                message: 'サーバーのバックアップ上限が 0 に設定されている場合、バックアップタスクは作成できません。',
                 key: 'schedule:task',
             });
         } else {
@@ -121,7 +122,7 @@ const TaskDetailsModal = ({ schedule, task }: Props) => {
                     <h2 css={tw`text-2xl mb-6`}>{task ? 'タスクを編集' : 'タスクを作成'}</h2>
                     <div css={tw`flex`}>
                         <div css={tw`mr-2 w-1/3`}>
-                            <Label>アクション</Label>
+                            <Label>操作</Label>
                             <ActionListener />
                             <FormikFieldWrapper name={'action'}>
                                 <FormikField as={Select} name={'action'}>
@@ -134,9 +135,9 @@ const TaskDetailsModal = ({ schedule, task }: Props) => {
                         <div css={tw`flex-1 ml-6`}>
                             <Field
                                 name={'timeOffset'}
-                                label={'タイムオフセット（秒単位）'}
+                                label={'時間オフセット（秒）'}
                                 description={
-                                    '前のタスク実行後、このタスクを実行するまでの待機時間です。スケジュール内の最初のタスクの場合は適用されません。'
+                                    '前のタスクが実行された後、このタスクを実行するまでの待機時間です。これがスケジュールの最初のタスクの場合は適用されません。'
                                 }
                             />
                         </div>
@@ -144,14 +145,14 @@ const TaskDetailsModal = ({ schedule, task }: Props) => {
                     <div css={tw`mt-6`}>
                         {values.action === 'command' ? (
                             <div>
-                                <Label>ペイロード</Label>
+                                <Label>内容</Label>
                                 <FormikFieldWrapper name={'payload'}>
                                     <FormikField as={Textarea} name={'payload'} rows={6} />
                                 </FormikFieldWrapper>
                             </div>
                         ) : values.action === 'power' ? (
                             <div>
-                                <Label>ペイロード</Label>
+                                <Label>内容</Label>
                                 <FormikFieldWrapper name={'payload'}>
                                     <FormikField as={Select} name={'payload'}>
                                         <option value={'start'}>サーバーを起動</option>
@@ -163,11 +164,11 @@ const TaskDetailsModal = ({ schedule, task }: Props) => {
                             </div>
                         ) : (
                             <div>
-                                <Label>除外ファイル</Label>
+                                <Label>除外するファイル</Label>
                                 <FormikFieldWrapper
                                     name={'payload'}
                                     description={
-                                        '任意です。このバックアップで除外するファイルやフォルダを指定します。デフォルトでは .pteroignore ファイルの内容が使われます。バックアップ上限に達した場合は古いバックアップから順に削除されます。'
+                                        '任意です。このバックアップから除外するファイルやフォルダーを入力してください。既定では .pteroignore ファイルの内容が使用されます。バックアップ上限に達している場合は、最も古いバックアップがローテーションされます。'
                                     }
                                 >
                                     <FormikField as={Textarea} name={'payload'} rows={6} />
@@ -178,8 +179,8 @@ const TaskDetailsModal = ({ schedule, task }: Props) => {
                     <div css={tw`mt-6 bg-neutral-700 border border-neutral-800 shadow-inner p-4 rounded`}>
                         <FormikSwitch
                             name={'continueOnFailure'}
-                            description={'このタスクが失敗しても後続のタスクを実行します。'}
-                            label={'失敗時も継続'}
+                            description={'このタスクが失敗しても、以降のタスクを実行します。'}
+                            label={'失敗時も続行'}
                         />
                     </div>
                     <div css={tw`flex justify-end mt-6`}>

@@ -50,15 +50,15 @@ const SteamDiskSpaceFeature = () => {
             {isAdmin ? (
                 <>
                     <div css={tw`mt-4 sm:flex items-center`}>
-                        <h2 css={tw`text-2xl mb-4 text-neutral-100 `}>利用可能なディスク容量が不足しています…</h2>
+                        <h2 css={tw`text-2xl mb-4 text-neutral-100 `}>利用可能なディスク容量が不足しています...</h2>
                     </div>
                     <p css={tw`mt-4`}>
-                        このサーバーは利用可能なディスク容量が不足しており、インストールまたは更新処理を完了できません。
+                        このサーバーは利用可能なディスク容量が不足しているため、インストールまたは更新処理を完了できません。
                     </p>
                     <p css={tw`mt-4`}>
-                        サーバーが稼働しているマシンで
-                        <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>df -h</code> を実行して
-                        十分な空き容量があることを確認してください。不要なファイルを削除するか、ディスク容量を増やして問題を解決してください。
+                        このサーバーをホストしているマシンで{' '}
+                        <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>df -h</code>{' '}
+                        を実行し、十分なディスク容量があるか確認してください。問題を解決するには、ファイルを削除するか利用可能なディスク容量を増やしてください。
                     </p>
                     <div css={tw`mt-8 sm:flex items-center justify-end`}>
                         <Button onClick={() => setVisible(false)} css={tw`w-full sm:w-auto border-transparent`}>
@@ -69,10 +69,10 @@ const SteamDiskSpaceFeature = () => {
             ) : (
                 <>
                     <div css={tw`mt-4 sm:flex items-center`}>
-                        <h2 css={tw`text-2xl mb-4 text-neutral-100`}>利用可能なディスク容量が不足しています…</h2>
+                        <h2 css={tw`text-2xl mb-4 text-neutral-100`}>利用可能なディスク容量が不足しています...</h2>
                     </div>
                     <p css={tw`mt-4`}>
-                        このサーバーは利用可能なディスク容量が不足しており、インストールまたは更新処理を完了できません。管理者に連絡し、ディスク容量不足の問題を伝えてください。
+                        このサーバーは利用可能なディスク容量が不足しているため、インストールまたは更新処理を完了できません。管理者に連絡し、ディスク容量の問題を伝えてください。
                     </p>
                     <div css={tw`mt-8 sm:flex items-center justify-end`}>
                         <Button onClick={() => setVisible(false)} css={tw`w-full sm:w-auto border-transparent`}>

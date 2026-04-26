@@ -29,13 +29,13 @@ interface Props {
 const getActionDetails = (action: string): [string, any] => {
     switch (action) {
         case 'command':
-            return ['コマンド送信', faCode];
+            return ['コマンドを送信', faCode];
         case 'power':
-            return ['電源操作送信', faToggleOn];
+            return ['電源操作を送信', faToggleOn];
         case 'backup':
-            return ['バックアップ作成', faFileArchive];
+            return ['バックアップを作成', faFileArchive];
         default:
-            return ['不明なアクション', faCode];
+            return ['不明な操作', faCode];
     }
 };
 
@@ -82,7 +82,7 @@ export default ({ schedule, task }: Props) => {
                 visible={visible}
                 onModalDismissed={() => setVisible(false)}
             >
-                このタスクを削除してよろしいですか？この操作は元に戻せません。
+                このタスクを削除してもよろしいですか？この操作は元に戻せません。
             </ConfirmationModal>
             <FontAwesomeIcon icon={icon} css={tw`text-lg text-white hidden md:block`} />
             <div css={tw`flex-none sm:flex-1 w-full sm:w-auto overflow-x-auto`}>
@@ -90,7 +90,7 @@ export default ({ schedule, task }: Props) => {
                 {task.payload && (
                     <div css={tw`md:ml-6 mt-2`}>
                         {task.action === 'backup' && (
-                            <p css={tw`text-xs uppercase text-neutral-400 mb-1`}>除外ファイル・フォルダ:</p>
+                            <p css={tw`text-xs uppercase text-neutral-400 mb-1`}>除外するファイルとフォルダー:</p>
                         )}
                         <div
                             css={tw`font-mono bg-neutral-800 rounded py-1 px-2 text-sm w-auto inline-block whitespace-pre-wrap break-all`}
@@ -105,7 +105,7 @@ export default ({ schedule, task }: Props) => {
                     <div css={tw`mr-6`}>
                         <div css={tw`flex items-center px-2 py-1 bg-yellow-500 text-yellow-800 text-sm rounded-full`}>
                             <Icon icon={faArrowCircleDown} css={tw`w-3 h-3 mr-2`} />
-                            失敗時に継続
+                            失敗時も続行
                         </div>
                     </div>
                 )}
@@ -113,7 +113,7 @@ export default ({ schedule, task }: Props) => {
                     <div css={tw`mr-6`}>
                         <div css={tw`flex items-center px-2 py-1 bg-neutral-500 text-sm rounded-full`}>
                             <Icon icon={faClock} css={tw`w-3 h-3 mr-2`} />
-                            {task.timeOffset} 秒後
+                            {task.timeOffset}秒後
                         </div>
                     </div>
                 )}

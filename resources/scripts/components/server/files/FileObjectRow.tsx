@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileAlt, faFileArchive, faFileImport, faFolder } from '@fortawesome/free-solid-svg-icons';
 import { encodePathSegments } from '@/helpers';
 import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
+import { ja } from 'date-fns/locale';
 import React, { memo } from 'react';
 import { FileObject } from '@/api/server/files/loadDirectory';
 import FileDropdownMenu from '@/components/server/files/FileDropdownMenu';
@@ -11,7 +12,7 @@ import tw from 'twin.macro';
 import isEqual from 'react-fast-compare';
 import SelectFileCheckbox from '@/components/server/files/SelectFileCheckbox';
 import { usePermissions } from '@/plugins/usePermissions';
-import { join } from 'path';
+import { join } from 'pathe';
 import { bytesToString } from '@/lib/formatters';
 import styles from './style.module.css';
 
@@ -56,10 +57,13 @@ const FileObjectRow = ({ file }: { file: FileObject }) => (
             </div>
             <div css={tw`flex-1 truncate`}>{file.name}</div>
             {file.isFile && <div css={tw`w-1/6 text-right mr-4 hidden sm:block`}>{bytesToString(file.size)}</div>}
-            <div css={tw`w-1/5 text-right mr-4 hidden md:block`} title={file.modifiedAt.toString()}>
+            <div
+                css={tw`w-1/5 text-right mr-4 hidden md:block`}
+                title={format(file.modifiedAt, 'yyyy年M月d日(E) HH:mm', { locale: ja })}
+            >
                 {Math.abs(differenceInHours(file.modifiedAt, new Date())) > 48
-                    ? format(file.modifiedAt, 'MMM do, yyyy h:mma')
-                    : formatDistanceToNow(file.modifiedAt, { addSuffix: true })}
+                    ? format(file.modifiedAt, 'yyyy年M月d日 HH:mm')
+                    : formatDistanceToNow(file.modifiedAt, { addSuffix: true, locale: ja })}
             </div>
         </Clickable>
         <FileDropdownMenu file={file} />

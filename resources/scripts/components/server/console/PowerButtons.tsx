@@ -42,7 +42,7 @@ export default ({ className }: PowerButtonProps) => {
                 open={open}
                 hideCloseIcon
                 onClose={() => setOpen(false)}
-                title={'強制停止の確認'}
+                title={'プロセスを強制停止'}
                 confirm={'続行'}
                 onConfirmed={onButtonClick.bind(this, 'kill-confirmed')}
             >

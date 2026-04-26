@@ -38,7 +38,7 @@ export default () => {
                 console.error(error);
 
                 setSubmitting(false);
-                addFlash({ type: 'error', title: 'Error', message: httpErrorToHuman(error) });
+                addFlash({ type: 'error', title: 'エラー', message: httpErrorToHuman(error) });
             });
 
             return;
@@ -47,11 +47,11 @@ export default () => {
         requestPasswordResetEmail(email, token)
             .then((response) => {
                 resetForm();
-                addFlash({ type: 'success', title: 'Success', message: response });
+                addFlash({ type: 'success', title: '成功', message: response });
             })
             .catch((error) => {
                 console.error(error);
-                addFlash({ type: 'error', title: 'Error', message: httpErrorToHuman(error) });
+                addFlash({ type: 'error', title: 'エラー', message: httpErrorToHuman(error) });
             })
             .then(() => {
                 setToken('');
@@ -72,12 +72,12 @@ export default () => {
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
-                <LoginFormContainer title={'パスワードのリセットをリクエスト'} css={tw`w-full flex`}>
+                <LoginFormContainer title={'パスワードリセットをリクエスト'} css={tw`w-full flex`}>
                     <Field
                         light
-                        label={'メールアドレス'}
+                        label={'メール'}
                         description={
-                            'パスワードをリセットするための手順を受け取るには、アカウントのメールアドレスを入力してください。'
+                            'パスワードのリセット手順を受け取るには、アカウントのメールアドレスを入力してください。'
                         }
                         name={'email'}
                         type={'email'}
@@ -107,7 +107,7 @@ export default () => {
                             to={'/auth/login'}
                             css={tw`text-xs text-neutral-500 tracking-wide uppercase no-underline hover:text-neutral-700`}
                         >
-                            ログイン画面に戻る
+                            ログインに戻る
                         </Link>
                     </div>
                 </LoginFormContainer>

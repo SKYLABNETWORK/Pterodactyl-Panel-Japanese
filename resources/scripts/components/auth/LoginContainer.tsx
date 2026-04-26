@@ -69,13 +69,13 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
             onSubmit={onSubmit}
             initialValues={{ username: '', password: '' }}
             validationSchema={object().shape({
-                username: string().required('ユーザー名またはメールアドレスは必須です。'),
+                username: string().required('ユーザー名またはメールアドレスを入力してください。'),
                 password: string().required('アカウントのパスワードを入力してください。'),
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
                 <LoginFormContainer title={'ログインして続行'} css={tw`w-full flex`}>
-                    <Field light type={'text'} label={'ユーザー名またはメールアドレス'} name={'username'} disabled={isSubmitting} />
+                    <Field light type={'text'} label={'ユーザー名またはメール'} name={'username'} disabled={isSubmitting} />
                     <div css={tw`mt-6`}>
                         <Field light type={'password'} label={'パスワード'} name={'password'} disabled={isSubmitting} />
                     </div>

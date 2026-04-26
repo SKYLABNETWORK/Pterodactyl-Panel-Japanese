@@ -33,7 +33,7 @@ const MassActionsBar = () => {
     const onClickCompress = () => {
         setLoading(true);
         clearFlashes('files');
-        setLoadingMessage('ファイルを圧縮中...');
+        setLoadingMessage('ファイルをアーカイブ中...');
 
         compressFiles(uuid, directory, selectedFiles)
             .then(() => mutate())
@@ -67,20 +67,20 @@ const MassActionsBar = () => {
                     {loadingMessage}
                 </SpinnerOverlay>
                 <Dialog.Confirm
-                    title={'ファイルの削除'}
+                    title={'ファイルを削除'}
                     open={showConfirm}
                     confirm={'削除'}
                     onClose={() => setShowConfirm(false)}
                     onConfirmed={onClickConfirmDeletion}
                 >
                     <p className={'mb-2'}>
-                        本当に <span className={'font-semibold text-gray-50'}>{selectedFiles.length} 個のファイル</span> を削除しますか？  
-                        この操作は取り消せず、ファイルは復元できません。
+                        <span className={'font-semibold text-gray-50'}>{selectedFiles.length} 個のファイル</span>
+                        を削除してもよろしいですか？これは元に戻せない操作で、ファイルは復元できません。
                     </p>
                     {selectedFiles.slice(0, 15).map((file) => (
                         <li key={file}>{file}</li>
                     ))}
-                    {selectedFiles.length > 15 && <li>その他 {selectedFiles.length - 15} 件</li>}
+                    {selectedFiles.length > 15 && <li>ほか {selectedFiles.length - 15} 件</li>}
                 </Dialog.Confirm>
                 {showMove && (
                     <RenameFileModal
@@ -96,7 +96,7 @@ const MassActionsBar = () => {
                         <Fade timeout={75} in={selectedFiles.length > 0} unmountOnExit>
                             <div css={tw`flex items-center space-x-4 pointer-events-auto rounded p-4 bg-black/50`}>
                                 <Button onClick={() => setShowMove(true)}>移動</Button>
-                                <Button onClick={onClickCompress}>圧縮</Button>
+                                <Button onClick={onClickCompress}>アーカイブ</Button>
                                 <Button.Danger variant={Button.Variants.Secondary} onClick={() => setShowConfirm(true)}>
                                     削除
                                 </Button.Danger>

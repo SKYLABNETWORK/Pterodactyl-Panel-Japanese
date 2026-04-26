@@ -89,7 +89,7 @@ export default ({ ...props }: Props) => {
                     <Form>
                         <FormikFieldWrapper
                             name={'term'}
-                            label={'検索キーワード'}
+                            label={'検索語'}
                             description={'検索を開始するには、サーバー名、UUID、または割り当てを入力してください。'}
                         >
                             <SearchWatcher />

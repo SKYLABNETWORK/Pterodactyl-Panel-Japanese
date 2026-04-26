@@ -41,12 +41,12 @@ export default ({ scheduleId, onDeleted }: Props) => {
             <Dialog.Confirm
                 open={visible}
                 onClose={() => setVisible(false)}
-                title={'スケジュールの削除'}
+                title={'スケジュールを削除'}
                 confirm={'削除'}
                 onConfirmed={onDelete}
             >
                 <SpinnerOverlay visible={isLoading} />
-                すべてのタスクが削除され、実行中のプロセスは終了します。
+                すべてのタスクが削除され、実行中の処理は終了されます。
             </Dialog.Confirm>
             <Button.Danger
                 variant={Button.Variants.Secondary}

@@ -19,7 +19,7 @@ const ScheduleCronRow = ({ cron, className }: Props) => (
         </div>
         <div className={'w-1/5 sm:w-auto text-center ml-4'}>
             <p className={'font-medium'}>{cron.dayOfMonth}</p>
-            <p className={'text-2xs text-neutral-500 uppercase'}>日 (月)</p>
+            <p className={'text-2xs text-neutral-500 uppercase'}>日（月）</p>
         </div>
         <div className={'w-1/5 sm:w-auto text-center ml-4'}>
             <p className={'font-medium'}>{cron.month}</p>

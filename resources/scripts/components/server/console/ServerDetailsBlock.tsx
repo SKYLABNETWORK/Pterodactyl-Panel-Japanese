@@ -39,6 +39,21 @@ const Limit = ({ limit, children }: { limit: string | null; children: React.Reac
     </>
 );
 
+const statusLabel = (status: string | null): string => {
+    switch (status) {
+        case 'running':
+            return '実行中';
+        case 'starting':
+            return '起動中';
+        case 'stopping':
+            return '停止中';
+        case 'offline':
+            return 'オフライン';
+        default:
+            return status ? capitalize(status) : 'オフライン';
+    }
+};
+
 const ServerDetailsBlock = ({ className }: { className?: string }) => {
     const [stats, setStats] = useState<Stats>({ memory: 0, cpu: 0, disk: 0, uptime: 0, tx: 0, rx: 0 });
 
@@ -103,10 +118,10 @@ const ServerDetailsBlock = ({ className }: { className?: string }) => {
                 ) : stats.uptime > 0 ? (
                     <UptimeDuration uptime={stats.uptime / 1000} />
                 ) : (
-                    capitalize(status)
+                    statusLabel(status)
                 )}
             </StatBlock>
-            <StatBlock icon={faMicrochip} title={'CPU負荷'} color={getBackgroundColor(stats.cpu, limits.cpu)}>
+            <StatBlock icon={faMicrochip} title={'CPU 使用率'} color={getBackgroundColor(stats.cpu, limits.cpu)}>
                 {status === 'offline' ? (
                     <span className={'text-gray-400'}>オフライン</span>
                 ) : (
@@ -127,10 +142,10 @@ const ServerDetailsBlock = ({ className }: { className?: string }) => {
             <StatBlock icon={faHdd} title={'ディスク'} color={getBackgroundColor(stats.disk / 1024, limits.disk * 1024)}>
                 <Limit limit={textLimits.disk}>{bytesToString(stats.disk)}</Limit>
             </StatBlock>
-            <StatBlock icon={faCloudDownloadAlt} title={'ネットワーク (受信)'}>
+            <StatBlock icon={faCloudDownloadAlt} title={'ネットワーク（受信）'}>
                 {status === 'offline' ? <span className={'text-gray-400'}>オフライン</span> : bytesToString(stats.rx)}
             </StatBlock>
-            <StatBlock icon={faCloudUploadAlt} title={'ネットワーク (送信)'}>
+            <StatBlock icon={faCloudUploadAlt} title={'ネットワーク（送信）'}>
                 {status === 'offline' ? <span className={'text-gray-400'}>オフライン</span> : bytesToString(stats.tx)}
             </StatBlock>
         </div>

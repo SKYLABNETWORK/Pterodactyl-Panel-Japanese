@@ -40,8 +40,8 @@ export default ({ database, className }: Props) => {
 
     const schema = object().shape({
         confirm: string()
-            .required('データベース名を指定する必要があります。')
-            .oneOf([database.name.split('_', 2)[1], database.name], 'データベース名を指定する必要があります。'),
+            .required('データベース名を入力してください。')
+            .oneOf([database.name.split('_', 2)[1], database.name], 'データベース名を入力してください。'),
     });
 
     const submit = (values: { confirm: string }, { setSubmitting }: FormikHelpers<{ confirm: string }>) => {
@@ -74,16 +74,16 @@ export default ({ database, className }: Props) => {
                         <FlashMessageRender byKey={'database:delete'} css={tw`mb-6`} />
                         <h2 css={tw`text-2xl mb-6`}>データベース削除の確認</h2>
                         <p css={tw`text-sm`}>
-                            データベースの削除は元に戻せません。
-                            <strong>{database.name}</strong> のデータベースと関連データが完全に削除されます。
+                            データベースの削除は元に戻せません。<strong>{database.name}</strong>{' '}
+                            データベースと関連するすべてのデータが完全に削除されます。
                         </p>
                         <Form css={tw`m-0 mt-6`}>
                             <Field
                                 type={'text'}
                                 id={'confirm_name'}
                                 name={'confirm'}
-                                label={'データベース名を確認'}
-                                description={'削除を確定するにはデータベース名を入力してください。'}
+                                label={'データベース名の確認'}
+                                description={'削除を確認するため、データベース名を入力してください。'}
                             />
                             <div css={tw`mt-6 text-right`}>
                                 <Button type={'button'} isSecondary css={tw`mr-2`} onClick={() => setVisible(false)}>
@@ -107,7 +107,7 @@ export default ({ database, className }: Props) => {
                     </CopyOnClick>
                 </div>
                 <div css={tw`mt-6`}>
-                    <Label>接続許可ホスト</Label>
+                    <Label>接続元</Label>
                     <Input type={'text'} readOnly value={database.allowConnectionsFrom} />
                 </div>
                 <div css={tw`mt-6`}>
@@ -125,7 +125,7 @@ export default ({ database, className }: Props) => {
                     </div>
                 </Can>
                 <div css={tw`mt-6`}>
-                    <Label>JDBC接続文字列</Label>
+                    <Label>JDBC 接続文字列</Label>
                     <CopyOnClick text={jdbcConnectionString} showInNotification={false}>
                         <Input type={'text'} readOnly value={jdbcConnectionString} />
                     </CopyOnClick>
@@ -156,7 +156,7 @@ export default ({ database, className }: Props) => {
                 </div>
                 <div css={tw`ml-8 text-center hidden md:block`}>
                     <p css={tw`text-sm`}>{database.allowConnectionsFrom}</p>
-                    <p css={tw`mt-1 text-2xs text-neutral-500 uppercase select-none`}>接続許可ホスト</p>
+                    <p css={tw`mt-1 text-2xs text-neutral-500 uppercase select-none`}>接続元</p>
                 </div>
                 <div css={tw`ml-8 text-center hidden md:block`}>
                     <CopyOnClick text={database.username}>

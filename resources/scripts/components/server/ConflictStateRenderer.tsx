@@ -16,17 +16,17 @@ export default () => {
         <ScreenBlock
             title={'インストーラーを実行中'}
             image={ServerInstallSvg}
-            message={'サーバーはまもなく準備ができます。数分後にもう一度お試しください。'}
+            message={'サーバーはまもなく利用可能になります。数分後にもう一度お試しください。'}
         />
     ) : status === 'suspended' ? (
         <ScreenBlock
-            title={'サーバーは停止中'}
+            title={'サーバーは停止されています'}
             image={ServerErrorSvg}
-            message={'このサーバーは停止されており、アクセスできません。'}
+            message={'このサーバーは停止されているためアクセスできません。'}
         />
     ) : isNodeUnderMaintenance ? (
         <ScreenBlock
-            title={'ノードはメンテナンス中'}
+            title={'ノードはメンテナンス中です'}
             image={ServerErrorSvg}
             message={'このサーバーのノードは現在メンテナンス中です。'}
         />
@@ -36,8 +36,8 @@ export default () => {
             image={ServerRestoreSvg}
             message={
                 isTransferring
-                    ? 'サーバーは新しいノードに転送中です。後ほどご確認ください。'
-                    : 'サーバーは現在バックアップから復元中です。数分後にもう一度ご確認ください。'
+                    ? 'サーバーを新しいノードへ転送しています。後でもう一度確認してください。'
+                    : 'サーバーをバックアップから復元しています。数分後にもう一度確認してください。'
             }
         />
     );

@@ -39,7 +39,7 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
                 console.error(error);
 
                 setSubmitting(false);
-                addFlash({ type: 'error', title: 'Error', message: httpErrorToHuman(error) });
+                addFlash({ type: 'error', title: 'エラー', message: httpErrorToHuman(error) });
             });
     };
 
@@ -52,7 +52,7 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
             }}
             validationSchema={object().shape({
                 password: string()
-                    .required('新しいパスワードは必須です。')
+                    .required('新しいパスワードを入力してください。')
                     .min(8, '新しいパスワードは8文字以上である必要があります。'),
                 passwordConfirmation: string()
                     .required('新しいパスワードが一致しません。')
@@ -63,7 +63,7 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
             {({ isSubmitting }) => (
                 <LoginFormContainer title={'パスワードをリセット'} css={tw`w-full flex`}>
                     <div>
-                        <label>メールアドレス</label>
+                        <label>メール</label>
                         <Input value={email} isLight disabled />
                     </div>
                     <div css={tw`mt-6`}>
@@ -88,7 +88,7 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
                             to={'/auth/login'}
                             css={tw`text-xs text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
                         >
-                            ログイン画面に戻る
+                            ログインに戻る
                         </Link>
                     </div>
                 </LoginFormContainer>

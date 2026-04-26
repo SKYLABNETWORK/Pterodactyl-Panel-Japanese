@@ -30,6 +30,10 @@ export default () => {
     );
 
     useEffect(() => {
+        setPage(1);
+    }, [showOnlyAdmin]);
+
+    useEffect(() => {
         if (!servers) return;
         if (servers.pagination.currentPage > 1 && !servers.items.length) {
             setPage(1);
@@ -37,9 +41,9 @@ export default () => {
     }, [servers?.pagination.currentPage]);
 
     useEffect(() => {
-        // この部分のURLの変更を処理するためにreact-routerを使用しないでください。さもないと、
-        // 不必要な再レンダリングがトリガーされます。ユーザーがページをリフレッシュした場合に備えて、
-        // URLでこれを追跡したいだけです。
+        // Don't use react-router to handle changing this part of the URL, otherwise it
+        // triggers a needless re-render. We just want to track this in the URL incase the
+        // user refreshes the page.
         window.history.replaceState(null, document.title, `/${page <= 1 ? '' : `?page=${page}`}`);
     }, [page]);
 
@@ -53,7 +57,7 @@ export default () => {
             {rootAdmin && (
                 <div css={tw`mb-2 flex justify-end items-center`}>
                     <p css={tw`uppercase text-xs text-neutral-400 mr-2`}>
-                        {showOnlyAdmin ? "他人のサーバーを表示中" : 'あなたのサーバーを表示中'}
+                        {showOnlyAdmin ? '他のユーザーのサーバーを表示中' : '自分のサーバーを表示中'}
                     </p>
                     <Switch
                         name={'show_all_servers'}
@@ -74,8 +78,8 @@ export default () => {
                         ) : (
                             <p css={tw`text-center text-sm text-neutral-400`}>
                                 {showOnlyAdmin
-                                    ? '表示する他のサーバーはありません。'
-                                    : 'あなたのアカウントに関連付けられたサーバーはありません。'}
+                                    ? '表示できる他のサーバーはありません。'
+                                    : 'アカウントに関連付けられたサーバーはありません。'}
                             </p>
                         )
                     }

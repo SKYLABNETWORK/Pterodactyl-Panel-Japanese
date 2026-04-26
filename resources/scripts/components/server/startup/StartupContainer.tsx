@@ -43,8 +43,9 @@ const StartupContainer = () => {
             .includes(variables.dockerImage.toLowerCase());
 
     useEffect(() => {
-        // 初期データを渡しているためマウント時に自動で発火しませんが、
-        // スタートアップ情報を読み込む際には常にAPIから最新情報を取得したいのでここでmutateを呼びます。
+        // Since we're passing in initial data this will not trigger on mount automatically. We
+        // want to always fetch fresh information from the API however when we're loading the startup
+        // information.
         mutate();
     }, []);
 
@@ -79,7 +80,7 @@ const StartupContainer = () => {
         !error || (error && isValidating) ? (
             <Spinner centered size={Spinner.Size.LARGE} />
         ) : (
-            <ServerError title={'エラーが発生しました'} message={httpErrorToHuman(error)} onRetry={() => mutate()} />
+            <ServerError title={'エラー'} message={httpErrorToHuman(error)} onRetry={() => mutate()} />
         )
     ) : (
         <ServerContentBlock title={'起動設定'} showFlashKey={'startup:image'}>
@@ -89,7 +90,7 @@ const StartupContainer = () => {
                         <p css={tw`font-mono bg-neutral-900 rounded py-2 px-4`}>{data.invocation}</p>
                     </div>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Dockerイメージ'} css={tw`flex-1 lg:flex-none lg:w-1/3 mt-8 md:mt-0 md:ml-10`}>
+                <TitledGreyBox title={'Docker イメージ'} css={tw`flex-1 lg:flex-none lg:w-1/3 mt-8 md:mt-0 md:ml-10`}>
                     {Object.keys(data.dockerImages).length > 1 && !isCustomImage ? (
                         <>
                             <InputSpinner visible={loading}>
@@ -106,7 +107,7 @@ const StartupContainer = () => {
                                 </Select>
                             </InputSpinner>
                             <p css={tw`text-xs text-neutral-300 mt-2`}>
-                                これは高度な機能で、このサーバーインスタンスを実行する際に使用するDockerイメージを選択できます。
+                                この高度な機能では、このサーバーインスタンスを実行するときに使用する Docker イメージを選択できます。
                             </p>
                         </>
                     ) : (
@@ -114,7 +115,7 @@ const StartupContainer = () => {
                             <Input disabled readOnly value={variables.dockerImage} />
                             {isCustomImage && (
                                 <p css={tw`text-xs text-neutral-300 mt-2`}>
-                                    このサーバーのDockerイメージは管理者によって手動で設定されており、このUIから変更できません。
+                                    このサーバーの Docker イメージは管理者によって手動で設定されているため、この UI からは変更できません。
                                 </p>
                             )}
                         </>

@@ -41,7 +41,7 @@ export default () => {
                         className={classNames(btnStyles.button, btnStyles.text, 'w-full sm:w-auto')}
                         onClick={() => setFilters((value) => ({ ...value, filters: {} }))}
                     >
-                        フィルターをクリア <XCircleIcon className={'w-4 h-4 ml-2'} />
+                        フィルターを解除 <XCircleIcon className={'w-4 h-4 ml-2'} />
                     </Link>
                 </div>
             )}

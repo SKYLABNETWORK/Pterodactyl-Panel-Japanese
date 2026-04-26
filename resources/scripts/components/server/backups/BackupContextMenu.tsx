@@ -122,21 +122,21 @@ export default ({ backup }: Props) => {
             <Dialog.Confirm
                 open={modal === 'unlock'}
                 onClose={() => setModal('')}
-                title={`"${backup.name}" のロック解除`}
+                title={`"${backup.name}" のロックを解除`}
                 onConfirmed={onLockToggle}
             >
-                このバックアップは自動または誤操作による削除保護が解除されます。
+                このバックアップは、自動削除や誤削除から保護されなくなります。
             </Dialog.Confirm>
             <Dialog.Confirm
                 open={modal === 'restore'}
                 onClose={() => setModal('')}
                 confirm={'復元'}
-                title={`"${backup.name}" の復元`}
+                title={`"${backup.name}" を復元`}
                 onConfirmed={() => doRestorationAction()}
             >
                 <p>
                     サーバーは停止されます。完了するまで、電源状態の操作、ファイルマネージャーへのアクセス、
-                    バックアップの追加作成は行えません。
+                    追加バックアップの作成はできません。
                 </p>
                 <p css={tw`mt-4 -mb-2 bg-gray-700 p-3 rounded`}>
                     <label htmlFor={'restore_truncate'} css={tw`text-base flex items-center cursor-pointer`}>
@@ -148,18 +148,18 @@ export default ({ backup }: Props) => {
                             checked={truncate}
                             onChange={() => setTruncate((s) => !s)}
                         />
-                        復元前にすべてのファイルを削除
+                        バックアップを復元する前にすべてのファイルを削除する。
                     </label>
                 </p>
             </Dialog.Confirm>
             <Dialog.Confirm
-                title={`"${backup.name}" の削除`}
+                title={`"${backup.name}" を削除`}
                 confirm={'続行'}
                 open={modal === 'delete'}
                 onClose={() => setModal('')}
                 onConfirmed={doDeletion}
             >
-                この操作は復元できません。バックアップは完全に削除されます。
+                これは元に戻せない操作です。削除したバックアップは復元できません。
             </Dialog.Confirm>
             <SpinnerOverlay visible={loading} fixed />
             {backup.isSuccessful ? (

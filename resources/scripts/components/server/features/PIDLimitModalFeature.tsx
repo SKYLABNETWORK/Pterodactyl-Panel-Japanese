@@ -60,16 +60,16 @@ const PIDLimitModalFeature = () => {
                 <>
                     <div css={tw`mt-4 sm:flex items-center`}>
                         <FontAwesomeIcon css={tw`pr-4`} icon={faExclamationTriangle} color={'orange'} size={'4x'} />
-                        <h2 css={tw`text-2xl mb-4 text-neutral-100 `}>メモリまたはプロセスの制限に達しました...</h2>
+                        <h2 css={tw`text-2xl mb-4 text-neutral-100 `}>メモリまたはプロセス上限に達しました...</h2>
                     </div>
-                    <p css={tw`mt-4`}>このサーバーは、最大のプロセスまたはメモリの制限に達しています。</p>
+                    <p css={tw`mt-4`}>このサーバーはプロセスまたはメモリの最大上限に達しました。</p>
                     <p css={tw`mt-4`}>
-                        wings の設定ファイル <code css={tw`font-mono bg-neutral-900`}>config.yml</code> の
-                        <code css={tw`font-mono bg-neutral-900`}>container_pid_limit</code> を増やすことで、
-                        この問題が解決する可能性があります。
+                        Wings の設定ファイル <code css={tw`font-mono bg-neutral-900`}>config.yml</code> にある{' '}
+                        <code css={tw`font-mono bg-neutral-900`}>container_pid_limit</code>{' '}
+                        を増やすことで、この問題を解決できる場合があります。
                     </p>
                     <p css={tw`mt-4`}>
-                        <b>注意：設定ファイルの変更を反映させるには Wings の再起動が必要です</b>
+                        <b>注意: 設定ファイルの変更を反映するには Wings の再起動が必要です</b>
                     </p>
                     <div css={tw`mt-8 sm:flex items-center justify-end`}>
                         <Button onClick={() => setVisible(false)} css={tw`w-full sm:w-auto border-transparent`}>
@@ -81,15 +81,14 @@ const PIDLimitModalFeature = () => {
                 <>
                     <div css={tw`mt-4 sm:flex items-center`}>
                         <FontAwesomeIcon css={tw`pr-4`} icon={faExclamationTriangle} color={'orange'} size={'4x'} />
-                        <h2 css={tw`text-2xl mb-4 text-neutral-100`}>リソース制限に達した可能性があります...</h2>
+                        <h2 css={tw`text-2xl mb-4 text-neutral-100`}>リソース上限に達した可能性があります...</h2>
                     </div>
                     <p css={tw`mt-4`}>
-                        このサーバーは割り当てられたリソースを超えて使用しようとしています。管理者に連絡し、
-                        以下のエラーを伝えてください。
+                        このサーバーは割り当て量を超えるリソースを使用しようとしています。管理者に連絡し、下記のエラーを伝えてください。
                     </p>
                     <p css={tw`mt-4`}>
                         <code css={tw`font-mono bg-neutral-900`}>
-                            pthread_create failed, メモリ不足またはプロセス／リソースの制限に達した可能性があります
+                            pthread_create failed, Possibly out of memory or process/resource limits reached
                         </code>
                     </p>
                     <div css={tw`mt-8 sm:flex items-center justify-end`}>

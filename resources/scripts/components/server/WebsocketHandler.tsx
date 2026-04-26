@@ -34,6 +34,9 @@ export default () => {
 
         socket.on('auth success', () => setConnectionState(true));
         socket.on('SOCKET_CLOSE', () => setConnectionState(false));
+        socket.on('SOCKET_CONNECT_ERROR', () => {
+            setError('複数回試行しましたが、WebSocket インスタンスに接続できませんでした。ページを更新してください。');
+        });
         socket.on('SOCKET_ERROR', () => {
             setError('connecting');
             setConnectionState(false);
@@ -54,7 +57,7 @@ export default () => {
                 updateToken(uuid, socket);
             } else {
                 setError(
-                    'Websocketに提供された認証情報の検証中にエラーが発生しました。ページをリフレッシュしてください。'
+                    'WebSocket に提供された認証情報の検証中にエラーが発生しました。ページを更新してください。'
                 );
             }
         });
@@ -112,7 +115,7 @@ export default () => {
                         <>
                             <Spinner size={'small'} />
                             <p css={tw`ml-2 text-sm text-red-100`}>
-                                サーバーへの接続に問題が発生しています。しばらくお待ちください...
+                                サーバーへの接続で問題が発生しています。しばらくお待ちください...
                             </p>
                         </>
                     ) : (
