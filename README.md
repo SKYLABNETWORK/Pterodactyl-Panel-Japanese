@@ -1,3 +1,9 @@
+### このプロジェクトは更新しておりません。
+
+## 個人のGitHubで更新してますので、良ければご利用ください。
+
+https://github.com/sora-skylab/Pterodactyl-Panel-Japanese
+
 # Pterodactyl Panel 日本語ファイル導入手順
 
 Pterodactyl Panelを日本語化するためのファイルセットです。
